@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const categoryCounts = new Map<string, number>();
+
+allPosts.forEach(p => p.data.categories.forEach((c: string) =>
+  categoryCounts.set(c, (categoryCounts.get(c) ?? 0) + 1)
+));
+
+const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+<BaseLayout title="Categories">
+  <h1 class="hero-weight text-4xl mb-8">Categories</h1>
+  <div class="flex flex-wrap gap-3">
+    {categories.map(([category, count]) => (
+      <a href={`/categories/${category}/`} class="tag-pill !text-sm !px-4 !py-2">{category} · {count}</a>
+    ))}
+  </div>
+</BaseLayout>

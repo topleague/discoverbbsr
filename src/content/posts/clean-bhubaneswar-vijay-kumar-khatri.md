@@ -1,33 +1,28 @@
 ---
-title: "Do what you can"
-date: "2014-08-21"
-excerpt: "A test article for the Menca theme and its Markdown publishing workflow."
-coverUrl: "https://menca-astro.netlify.app/_astro/01.Dh_sG7Ag_Z1IYzDd.webp"
-tags:
-  - bhubaneswar
-  - test
-author: "Discover Bhubaneswar"
-draft: false
+title: "Clean Bhubaneswar - How Vijay Kumar Khatri Leads by Example"
+date: 2016-03-30
+excerpt: "For the past couple of years, he has been visiting the Bhaskareswara Temple every single morning, spending his time there picking the trash on the grounds."
+categories: ["guest-articles"]
+tags: []
+permalink: "https://discoverbbsr.com/clean-bhubaneswar-vijay-kumar-khatri/"
+author: "discbbsr"
+coverUrl: "/images/clean-bhubaneswar-vijay-kumar-khatri/12887513_10153300337901148_962069206_o-e1459342933842.jpg"
 ---
 
-# Bhubaneswar Days
+Mr. Vijay Kumar Khatri has set a great example of leadership for the residents of Bhubaneswar. The respectable resident understands his responsibility towards keeping his city and surroundings clean and is taking necessary steps towards ensuring that.
 
-Bhubaneswar has always been a city of contrasts, where old traditions and modern aspirations exist side by side.
+For the past couple of years, he has been visiting the Bhaskareswara Temple every single morning, spending his time there picking the trash on the grounds. Mr. Khatri thinks of this as a service to god and adds that this also helps keep him active.
 
-This is a test article for the Menca theme and its Markdown-based publishing workflow. The purpose is to verify that an article can be added directly to the repository, processed by Astro, and published through Cloudflare without requiring WordPress or another content-management system.
+Originally hailing from Shahabad in the state of Uttar Pradesh, he moved to Bhubaneswar in 1962. He worked in the cash department at Allahabad Bank for the most part of his career. He now lives a retired life in Old Town Bhubaneswar with his wife and elder son.
 
-The article also gives us an opportunity to test the theme's typography, responsive layout, metadata, URL structure, and image-handling capabilities.
+> For the past couple of years, he has been visiting the Bhaskareswara Temple every single morning, spending his time there picking the trash on the grounds.
 
-<p class="hero-weight text-4xl mb-2">Synergistically evolve</p>
+A few years ago, he suffered a severe paralytic attack that left him bedfast for a period of 6 months. Determination, strong willpower and unconditional support from his wife made him stand up on his feet again. As he lived close to the Bhaskareswara temple, his wife would bring him to the grounds every morning in the hope to turn the wobbly walk into careful little footsteps.
 
-Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration.
+When he became mobile, he started making these trips to the temple on his own. On the grounds, he noticed all kinds of trash, food wrappers, used napkins, poly bags, soda cans etc. He then started picking every iota of trash he found there and threw his collection in the trash bin located in the site. This has become his daily routine ever since that day.
 
-<p class="font-bold text-2xl mb-2">Podcasting</p>
+It is time we wonder how this trash makes its way to the grounds and not to the designated garbage bins. Eating a packet of chips in your car and throwing the empty packet out of the window may be convenient, but in the process, you contribute to the piling garbage and an unclean city.
 
-Collaboratively administrate turnkey channels whereas virtual e-tailers. Objectively seize scalable metrics whereas proactive e-services. Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources.
+Most of us complain about trash management in this city; many of us want to do something about it, but cringe and look away when we see filthy surroundings. To start with, a certain amount of self-policing can make way for a healthier environment.
 
-<blockquote class="prose"><p>The longer I live, the more I realize that I am never wrong about anything, and that all the pains I have so humbly taken to verify my notions have only wasted my time!</p></blockquote>
-
-![Bhubaneswar](https://menca-astro.netlify.app/_astro/04.BGp5FkXW_ZzcAca.webp)
-
-Credibly reintermediate backend ideas for cross-platform models. Continually reintermediate integrated processes through technically sound intellectual capital. Holistically foster superior methodologies without market-driven best practices.
+Mr. Khatri has proved to be a role model for all residents of Bhubaneswar, and we all should follow his lead in trying to keep our city clean.  Here’s a big shout-out to recognize and applaud his noble efforts.

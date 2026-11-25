@@ -1,7 +1,346 @@
+
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Not Found">
-  <h1 class="hero-weight text-4xl mb-4">404</h1>
-  <p><a href="/" class="text-[var(--accent)]">Back home</a></p>
+
+<BaseLayout title="404 — Lost in Bhubaneswar">
+  <main class="not-found">
+    <section class="not-found__content">
+      <p class="not-found__eyebrow">BHUBANESWAR • ODISHA</p>
+
+      <h1>
+        <span class="not-found__number">404</span>
+        <span class="not-found__headline">You've taken a wrong turn!</span>
+      </h1>
+
+      <p class="not-found__message">
+        Looks like this page got lost somewhere in the Temple City.
+        Even our auto-rickshaw driver can't find it.
+      </p>
+
+      <div class="not-found__actions">
+        <a class="not-found__button" href="/">Take me home</a>
+        <a class="not-found__link" href="/categories/">Explore the city</a>
+      </div>
+    </section>
+
+    <div class="not-found__scene">
+      <svg
+        viewBox="0 0 760 430"
+        role="img"
+        aria-label="A playful illustration of Bhubaneswar's temple skyline, with Lingaraj Temple and a lost auto-rickshaw"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f9e9d5" />
+            <stop offset="1" stop-color="#f2c9a5" />
+          </linearGradient>
+
+          <linearGradient id="temple" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#a64d2d" />
+            <stop offset=".5" stop-color="#d77b48" />
+            <stop offset="1" stop-color="#984326" />
+          </linearGradient>
+
+          <linearGradient id="auto" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f8c84c" />
+            <stop offset="1" stop-color="#e69b20" />
+          </linearGradient>
+        </defs>
+
+        <!-- Sky and sun -->
+        <rect x="18" y="18" width="724" height="394" rx="28" fill="url(#sky)" />
+        <circle cx="625" cy="92" r="42" fill="#f5b74d" opacity=".85" />
+        <circle cx="625" cy="92" r="56" fill="#f5b74d" opacity=".16" />
+
+        <!-- Clouds -->
+        <g fill="#fff7ed" opacity=".9">
+          <path d="M75 94c0-15 12-27 27-27 5-20 23-33 44-30 18 2 32 16 35 34 17 1 30 14 30 30H75z" />
+          <path d="M480 150c0-11 9-20 20-20 4-15 17-24 32-22 13 2 23 12 25 25 13 1 22 10 22 22H480z" />
+        </g>
+
+        <!-- Distant green hills -->
+        <path d="M18 275c90-80 166-65 247-12 73-65 154-66 233-7 79-58 161-35 244 16v140H18z"
+          fill="#b4c6a2" />
+        <path d="M18 304c104-56 174-35 250 3 88-54 178-38 253 3 78-36 151-22 221 8v94H18z"
+          fill="#8fa982" />
+
+        <!-- Dhauli peace stupa in the distance -->
+        <g transform="translate(555 202)" fill="#fff6e8" stroke="#d6b99a" stroke-width="2">
+          <path d="M-37 35h74l-8-10h-58z" />
+          <path d="M-28 25c0-20 12-31 28-31s28 11 28 31z" />
+          <path d="M-17 7h34M-20 14h40" fill="none" />
+          <path d="M0-6v-18" stroke-width="3" />
+          <path d="M-5-24h10l-5-12z" />
+        </g>
+
+        <!-- Temple platform -->
+        <path d="M76 325h608v24H76z" fill="#e8c39c" />
+        <path d="M76 349h608v12H76z" fill="#c68a5d" />
+        <path d="M76 361h608v10H76z" fill="#9d6546" />
+
+        <!-- Lingaraj Temple complex -->
+        <g stroke="#7d3b25" stroke-width="2" stroke-linejoin="round">
+          <!-- Main vimana -->
+          <path d="M263 325V190l18-17 8-28 11-18 8-31 11-19 11-30 11 30 11 19 8 31 11 18 8 28 18 17v135z"
+            fill="url(#temple)" />
+
+          <!-- Temple tower carved tiers -->
+          <g fill="none" stroke="#f1b17d" stroke-width="4">
+            <path d="M274 300h116M274 282h116M276 264h112M280 246h104M284 228h96M290 210h84M296 192h72" />
+            <path d="M286 306v-13m18 13v-13m18 13v-13m18 13v-13m18 13v-13" />
+            <path d="M295 270v-12m20 12v-12m20 12v-12m20 12v-12" />
+            <path d="M304 234v-12m18 12v-12m18 12v-12" />
+            <path d="M312 198v-10m16 10v-10" />
+          </g>
+
+          <!-- Amalaka and finial -->
+          <path d="M293 150c0-15 18-27 39-27s39 12 39 27-18 18-39 18-39-3-39-18z"
+            fill="#e9a66e" />
+          <path d="M306 133c8-10 44-10 52 0M311 140c7-6 35-6 42 0"
+            fill="none" stroke="#7d3b25" />
+          <path d="M328 122V91h8v31z" fill="#f2c18d" />
+          <path d="M324 91h16l-8-15z" fill="#9d4a2b" />
+          <circle cx="332" cy="72" r="5" fill="#f2c18d" />
+
+          <!-- Jagamohana -->
+          <path d="M390 325V244l15-14 9-20 11-13 11-20 11 20 11 13 9 20 15 14v81z"
+            fill="#c56c40" />
+          <path d="M400 278h82M400 295h82M400 312h82" fill="none" stroke="#efb27d" stroke-width="4" />
+          <path d="M416 244h49v81h-49z" fill="#8f4329" />
+          <path d="M426 325v-53a14 14 0 0 1 28 0v53" fill="#f4c18b" />
+          <path d="M422 250h37" stroke="#f4c18b" stroke-width="5" />
+
+          <!-- Small side shrine -->
+          <path d="M177 325v-68l9-10 7-17 7-12 7-13 7 13 7 12 7 17 9 10v68z"
+            fill="#d9824e" />
+          <path d="M184 295h46M184 308h46M184 319h46" stroke="#f4bd87" stroke-width="3" />
+          <path d="M204 325v-25a10 10 0 0 1 20 0v25" fill="#8f4329" />
+
+          <!-- Small shrine finials -->
+          <path d="M207 205v-18h4v18M203 187h12l-6-10z" fill="#f0b57d" />
+        </g>
+
+        <!-- Road sign -->
+        <g transform="translate(82 226)">
+          <path d="M15 77v87" stroke="#805b3d" stroke-width="8" stroke-linecap="round" />
+          <path d="M0 0h178v62H0z" rx="8" fill="#fff5e6" stroke="#9d6546" stroke-width="3" />
+          <path d="M12 12h154v38H12z" fill="#2f6b4f" />
+          <text x="89" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#fff7ed">
+            LINGARAJ TEMPLE
+          </text>
+          <text x="89" y="43" text-anchor="middle" font-size="10" fill="#fff7ed">
+            THIS WAY
+          </text>
+          <path d="M145 62l20 0-10 13z" fill="#9d6546" />
+        </g>
+
+        <!-- Curving road -->
+        <path d="M18 372c130-17 208 23 318 16s238-35 406-2v26H18z" fill="#6c7770" />
+        <path d="M18 385c130-17 208 23 318 16s238-35 406-2" fill="none" stroke="#fff0d4" stroke-width="4" stroke-dasharray="18 18" />
+
+        <!-- Lost auto-rickshaw -->
+        <g transform="translate(405 275)">
+          <!-- shadow -->
+          <ellipse cx="135" cy="104" rx="145" ry="17" fill="#536458" opacity=".28" />
+
+          <!-- rear wheel -->
+          <circle cx="54" cy="92" r="28" fill="#28342e" />
+          <circle cx="54" cy="92" r="14" fill="#d9d6c8" />
+          <circle cx="54" cy="92" r="5" fill="#68746b" />
+
+          <!-- front wheel -->
+          <circle cx="226" cy="92" r="28" fill="#28342e" />
+          <circle cx="226" cy="92" r="14" fill="#d9d6c8" />
+          <circle cx="226" cy="92" r="5" fill="#68746b" />
+
+          <!-- body -->
+          <path d="M18 78V39c0-8 7-14 15-14h35l31-40h73l29 40h22c9 0 16 7 16 16v37z"
+            fill="url(#auto)" stroke="#9a5e19" stroke-width="3" stroke-linejoin="round" />
+
+          <!-- cabin -->
+          <path d="M78 25l27-34h58l25 34z" fill="#315e51" stroke="#9a5e19" stroke-width="3" />
+          <path d="M111-2h46l17 27h-80z" fill="#b8d9d2" />
+          <path d="M136-2v27" stroke="#315e51" stroke-width="4" />
+
+          <!-- canopy -->
+          <path d="M60-19h118l15 17H46z" fill="#e95d3d" stroke="#9a5e19" stroke-width="3" />
+          <path d="M75-19l-9-12h96l-9 12" fill="#f8c84c" stroke="#9a5e19" stroke-width="3" />
+
+          <!-- front -->
+          <path d="M196 34h28c8 0 14 6 14 14v30h-42z" fill="#f4b83d" stroke="#9a5e19" stroke-width="3" />
+          <rect x="210" y="45" width="25" height="13" rx="4" fill="#fff3b8" />
+          <rect x="24" y="44" width="15" height="17" rx="3" fill="#fff3b8" />
+
+          <!-- bumper and detail -->
+          <path d="M18 78h244" stroke="#fff1c5" stroke-width="7" stroke-linecap="round" />
+          <path d="M32 67h30m136 0h20" stroke="#9a5e19" stroke-width="4" />
+
+          <!-- number plate -->
+          <rect x="112" y="62" width="56" height="17" rx="3" fill="#fff8e9" />
+          <text x="140" y="74" text-anchor="middle" font-size="10" font-weight="800" fill="#34443a">404</text>
+
+          <!-- driver -->
+          <circle cx="137" cy="7" r="12" fill="#8e5435" />
+          <path d="M126 6c1-14 22-16 25-1l-3-2h-19z" fill="#28342e" />
+          <path d="M126 18l-8 18h35l-7-18z" fill="#e95d3d" />
+        </g>
+
+        <!-- floating question marks -->
+        <g fill="#9b4b2c" font-family="system-ui, sans-serif" font-weight="800">
+          <text x="620" y="255" font-size="34" transform="rotate(12 620 255)">?</text>
+          <text x="660" y="285" font-size="22" transform="rotate(-12 660 285)">?</text>
+          <text x="585" y="280" font-size="18" transform="rotate(8 585 280)">?</text>
+        </g>
+
+        <!-- small playful caption -->
+        <g transform="translate(520 315)">
+          <path d="M0 0h150a10 10 0 0 1 10 10v34a10 10 0 0 1-10 10H25L8 68l3-14H0a10 10 0 0 1-10-10V10A10 10 0 0 1 0 0z"
+            fill="#fff7ed" stroke="#d7a77d" stroke-width="2" />
+          <text x="75" y="23" text-anchor="middle" font-size="12" font-weight="800" fill="#9b4b2c">
+            BHAI, WRONG TURN!
+          </text>
+          <text x="75" y="40" text-anchor="middle" font-size="10" fill="#6c5544">
+            Page not found...
+          </text>
+        </g>
+      </svg>
+    </div>
+
+    <p class="not-found__footer">
+      Don't worry. Bhubaneswar has plenty of places to explore.
+    </p>
+  </main>
 </BaseLayout>
+
+<style>
+  .not-found {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(2rem, 7vw, 5rem) 1.25rem 3rem;
+    text-align: center;
+  }
+
+  .not-found__content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .not-found__eyebrow {
+    margin: 0 0 1rem;
+    color: #b86b42;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+
+  .not-found h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0;
+    line-height: 1.05;
+  }
+
+  .not-found__number {
+    color: #bd5d37;
+    font-size: clamp(5rem, 16vw, 9rem);
+    font-weight: 900;
+    letter-spacing: -0.08em;
+  }
+
+  .not-found__headline {
+    color: var(--color-text, currentColor);
+    font-size: clamp(1.7rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
+  .not-found__message {
+    max-width: 540px;
+    margin: 1.25rem auto 0;
+    font-size: clamp(1rem, 2.4vw, 1.2rem);
+    line-height: 1.7;
+    opacity: 0.78;
+  }
+
+  .not-found__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    margin-top: 1.75rem;
+  }
+
+  .not-found__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.8rem 1.35rem;
+    border-radius: 999px;
+    background: #bd5d37;
+    color: #fffaf4;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 160ms ease, background 160ms ease;
+  }
+
+  .not-found__button:hover {
+    transform: translateY(-2px);
+    background: #a94d2b;
+  }
+
+  .not-found__link {
+    color: var(--color-text, currentColor);
+    font-weight: 700;
+    text-underline-offset: 4px;
+  }
+
+  .not-found__scene {
+    max-width: 760px;
+    margin: clamp(2rem, 6vw, 4rem) auto 0;
+  }
+
+  .not-found__scene svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .not-found__footer {
+    margin: 1.25rem 0 0;
+    font-size: 0.9rem;
+    opacity: 0.65;
+  }
+
+  @media (max-width: 560px) {
+    .not-found {
+      padding-top: 2rem;
+    }
+
+    .not-found__scene {
+      margin-top: 2rem;
+    }
+
+    .not-found__actions {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .not-found__button {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .not-found__button {
+      transition: none;
+    }
+  }
+</style>
+

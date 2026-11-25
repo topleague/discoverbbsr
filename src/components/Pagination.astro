@@ -1,0 +1,35 @@
+---
+const { page } = Astro.props;
+---
+
+{page.lastPage > 1 && (
+  <nav
+    class="flex items-center justify-between gap-4 mt-12 pt-6 border-t"
+    style="border-color: var(--line)"
+    aria-label="Pagination"
+  >
+    {page.url.prev ? (
+      <a
+        href={page.url.prev}
+        class="text-sm font-bold text-[var(--ink-soft)] hover:text-[var(--accent)]"
+      >
+        ← Previous
+      </a>
+    ) : (
+      <span></span>
+    )}
+
+    <span class="text-sm text-[var(--ink-soft)]">
+      Page {page.currentPage} of {page.lastPage}
+    </span>
+
+    {page.url.next && (
+      <a
+        href={page.url.next}
+        class="text-sm font-bold text-[var(--ink-soft)] hover:text-[var(--accent)]"
+      >
+        Next →
+      </a>
+    )}
+  </nav>
+)}

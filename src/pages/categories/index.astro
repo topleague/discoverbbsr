@@ -3,7 +3,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const categoryMap = new Map<string, typeof allPosts>();
+type Post = (typeof allPosts)[number];
+
+const categoryMap = new Map<string, Post[]>();
 
 allPosts.forEach((post) => {
   post.data.categories.forEach((category: string) => {
@@ -13,14 +15,13 @@ allPosts.forEach((post) => {
 });
 
 const categories = [...categoryMap.entries()]
-  .map(([name, posts]) => ({
-    name,
-    posts,
-    count: posts.length,
-    latest: posts.sort(
-      (a, b) => b.data.date.getTime() - a.data.date.getTime()
-    )[0],
-  }))
+  .map(([name, posts]) => {
+    const latest = [...posts].sort(
+      (a: Post, b: Post) => b.data.date.getTime() - a.data.date.getTime()
+    )[0];
+
+    return { name, count: posts.length, latest };
+  })
   .sort((a, b) => b.count - a.count);
 ---
 
@@ -30,7 +31,7 @@ const categories = [...categoryMap.entries()]
       <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--accent)]">
         Explore Discover Bhubaneswar
       </p>
-      <h1 class="hero-weight text-4xl sm:text-5xl mb-4">Categories</h1>
+      <h1 class="hero-weight mb-4 text-4xl sm:text-5xl">Categories</h1>
       <p class="max-w-2xl text-lg text-[var(--ink-soft)]">
         Browse stories, guides and local discoveries by topic.
       </p>

@@ -3,15 +3,92 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const tagCounts = new Map<string, number>();
-allPosts.forEach(p => p.data.tags.forEach((t: string) => tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1)));
-const tags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+
+const tagMap = new Map();
+
+for (const post of allPosts) {
+  for (const tag of post.data.tags) {
+    tagMap.set(tag, (tagMap.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = [...tagMap.entries()]
+  .map(([name, count]) => ({ name, count }))
+  .sort((a, b) => b.count - a.count);
+
+const popularTags = tags.slice(0, 12);
+
+const alphabetGroups = [...tags]
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .reduce((groups, tag) => {
+    const letter = tag.name.charAt(0).toUpperCase();
+
+    if (!groups[letter]) {
+      groups[letter] = [];
+    }
+
+    groups[letter].push(tag);
+    return groups;
+  }, {});
 ---
-<BaseLayout title="Tags">
-  <h1 class="hero-weight text-4xl mb-8">Tags</h1>
-  <div class="flex flex-wrap gap-3">
-    {tags.map(([tag, count]) => (
-      <a href={`/tags/${tag}/`} class="tag-pill !text-sm !px-4 !py-2">{tag} · {count}</a>
-    ))}
+
+<BaseLayout title="Explore Tags | Discover Bhubaneswar">
+  <div class="max-w-5xl mx-auto">
+    <header class="mb-10">
+      <p class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)] mb-3">
+        Browse topics
+      </p>
+
+      <h1 class="hero-weight text-4xl md:text-5xl mb-4">
+        Explore Tags
+      </h1>
+
+      <p class="text-lg text-[var(--ink-soft)] leading-relaxed max-w-2xl">
+        Find articles by topic. Browse popular tags or explore the complete
+        directory to discover stories from across Bhubaneswar and Odisha.
+      </p>
+    </header>
+
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-5">Popular Tags</h2>
+
+      <div class="flex flex-wrap gap-3">
+        {popularTags.map((tag) => (
+          <a
+            href={`/tags/${encodeURIComponent(tag.name)}/`}
+            class="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            style="border-color: var(--line)"
+          >
+            <span>#{tag.name}</span>
+            <span class="text-xs text-[var(--ink-soft)]">{tag.count}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-6">All Tags</h2>
+
+      <div class="space-y-8">
+        {Object.entries(alphabetGroups).map(([letter, letterTags]) => (
+          <div class="border-t pt-5" style="border-color: var(--line)">
+            <h3 class="text-lg font-bold mb-4">{letter}</h3>
+
+            <div class="flex flex-wrap gap-3">
+              {letterTags.map((tag) => (
+                <a
+                  href={`/tags/${encodeURIComponent(tag.name)}/`}
+                  class="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-colors hover:text-[var(--accent)]"
+                  style="background: var(--surface)"
+                >
+                  <span>#{tag.name}</span>
+                  <span class="text-xs text-[var(--ink-soft)]">{tag.count}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   </div>
 </BaseLayout>

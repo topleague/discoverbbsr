@@ -1,49 +1,19 @@
 ---
 import { formatDate } from '@/utils/formatDate';
-
 const { post } = Astro.props;
 const cover = post.data.cover ?? null;
 const coverUrl = post.data.coverUrl ?? null;
 ---
-
-<article class="flex flex-col">
-  <a
-    href={`/${post.id}/`}
-    class="block aspect-[4/3] overflow-hidden rounded-md bg-[var(--surface)] mb-4"
-  >
-    {cover ? (
-      <img
-        src={cover.src}
-        alt={post.data.title}
-        class="w-full h-full object-cover"
-        loading="lazy"
-      />
-    ) : coverUrl ? (
-      <img
-        src={coverUrl}
-        alt={post.data.title}
-        class="w-full h-full object-cover"
-        loading="lazy"
-      />
-    ) : null}
+<article class="overflow-hidden rounded-lg border" style="border-color: var(--line)">
+  <a href={`/${post.id}/`} class="block aspect-[16/10] overflow-hidden bg-[var(--surface)]">
+    {cover ? <img src={cover.src} alt={post.data.title} class="w-full h-full object-cover" /> :
+     coverUrl ? <img src={coverUrl} alt={post.data.title} class="w-full h-full object-cover" /> : null}
   </a>
-
-  <p class="text-xs uppercase tracking-wide text-[var(--ink-soft)] mb-2">
-    {formatDate(post.data.date)}
-  </p>
-
-  <h2 class="text-xl font-bold mb-2">
-    <a
-      href={`/${post.id}/`}
-      class="hover:text-[var(--accent)] transition-colors"
-    >
-      {post.data.title}
-    </a>
-  </h2>
-
-  {post.data.excerpt && (
-    <p class="text-[var(--ink-soft)] leading-relaxed">
-      {post.data.excerpt}
-    </p>
-  )}
+  <div class="p-5">
+    <p class="text-xs uppercase tracking-wide text-[var(--ink-soft)] mb-2">{formatDate(post.data.date)}</p>
+    <h2 class="text-xl font-bold leading-snug mb-3">
+      <a href={`/${post.id}/`} class="hover:text-[var(--accent)] transition-colors">{post.data.title}</a>
+    </h2>
+    {post.data.excerpt && <p class="text-sm text-[var(--ink-soft)] leading-relaxed">{post.data.excerpt}</p>}
+  </div>
 </article>

@@ -4,37 +4,35 @@ import PostGridCard from '@/components/PostGridCard.astro';
 import Pagination from '@/components/Pagination.astro';
 import { getCollection } from 'astro:content';
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
-  const categories = [...new Set(posts.flatMap(post => post.data.categories))];
+  const categories = [...new Set(posts.flatMap(p => p.data.categories))];
 
-  return categories.flatMap(category => {
+  return categories.map(category => {
     const categoryPosts = posts
-      .filter(post => post.data.categories.includes(category))
+      .filter(p => p.data.categories.includes(category))
       .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-    return paginate(categoryPosts, {
-      pageSize: 9,
+    return {
       params: { category },
-    });
+      props: {
+        posts: categoryPosts.slice(0, 9),
+        lastPage: Math.ceil(categoryPosts.length / 9),
+      },
+    };
   });
 }
 
 const { category } = Astro.params;
-const { page } = Astro.props;
+const { posts, lastPage } = Astro.props;
 ---
-
 <BaseLayout title={`Category: ${category}`}>
   <p class="text-sm text-[var(--ink-soft)] mb-2">
-    <a href="/categories/" class="hover:text-[var(--accent)]">Categories</a>
-    / {category}
+    <a href="/categories/" class="hover:text-[var(--accent)]">Categories</a> / {category}
   </p>
-
   <h1 class="hero-weight text-4xl mb-8">{category}</h1>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {page.data.map(post => <PostGridCard post={post} />)}
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {posts.map((post: any) => <PostGridCard post={post} />)}
   </div>
-
-  <Pagination page={page} />
+  <Pagination currentPage={1} lastPage={lastPage} basePath={`/categories/${category}/`} />
 </BaseLayout>

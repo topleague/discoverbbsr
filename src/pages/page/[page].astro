@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostGridCard from '@/components/PostGridCard.astro';
+import Pagination from '@/components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+const pageSize = 9;
+
+export async function getStaticPaths() {
+  const pageSize = 9;
+  const posts = (await getCollection('posts', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  const lastPage = Math.ceil(posts.length / pageSize);
+
+  return Array.from({ length: Math.max(0, lastPage - 1) }, (_, i) => {
+    const currentPage = i + 2;
+    return {
+      params: { page: String(currentPage) },
+      props: {
+        posts: posts.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+        currentPage,
+        lastPage,
+      },
+    };
+  });
+}
+
+const { posts, currentPage, lastPage } = Astro.props;
+---
+<BaseLayout title={`Discover Bhubaneswar — Page ${currentPage}`}>
+  <h1 class="hero-weight text-4xl sm:text-5xl mb-8">Discover Bhubaneswar</h1>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {posts.map((post: any) => <PostGridCard post={post} />)}
+  </div>
+  <Pagination currentPage={currentPage} lastPage={lastPage} />
+</BaseLayout>

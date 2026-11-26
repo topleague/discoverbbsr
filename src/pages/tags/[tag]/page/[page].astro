@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PostGridCard from '@/components/PostGridCard.astro';
+import Pagination from '@/components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+const pageSize = 9;
+
+export async function getStaticPaths() {
+  const pageSize = 9;
+  const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+  const tags = [...new Set(allPosts.flatMap(p => p.data.tags))];
+
+  return tags.flatMap(tag => {
+    const posts = allPosts
+      .filter(p => p.data.tags.includes(tag))
+      .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+    const lastPage = Math.ceil(posts.length / pageSize);
+
+    return Array.from({ length: Math.max(0, lastPage - 1) }, (_, i) => {
+      const currentPage = i + 2;
+      return {
+        params: { tag, page: String(currentPage) },
+        props: {
+          posts: posts.slice((currentPage - 1) * pageSize, currentPage * pageSize),
+          tag,
+          currentPage,
+          lastPage,
+        },
+      };
+    });
+  });
+}
+
+const { posts, tag, currentPage, lastPage } = Astro.props;
+---
+<BaseLayout title={`Posts tagged "${tag}" — Page ${currentPage}`}>
+  <p class="text-sm text-[var(--ink-soft)] mb-2">
+    <a href="/tags/" class="hover:text-[var(--accent)]">Tags</a> / {tag}
+  </p>
+  <h1 class="hero-weight text-4xl mb-8">#{tag}</h1>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {posts.map((post: any) => <PostGridCard post={post} />)}
+  </div>
+  <Pagination currentPage={currentPage} lastPage={lastPage} basePath={`/tags/${tag}/`} />
+</BaseLayout>

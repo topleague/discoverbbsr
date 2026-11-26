@@ -3,19 +3,98 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
-const categoryCounts = new Map<string, number>();
 
-allPosts.forEach(p => p.data.categories.forEach((c: string) =>
-  categoryCounts.set(c, (categoryCounts.get(c) ?? 0) + 1)
-));
+const categoryMap = new Map();
 
-const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1]);
+for (const post of allPosts) {
+  for (const category of post.data.categories) {
+    if (!categoryMap.has(category)) {
+      categoryMap.set(category, []);
+    }
+
+    categoryMap.get(category).push(post);
+  }
+}
+
+const categories = [...categoryMap.entries()]
+  .map(([name, posts]) => ({
+    name,
+    posts: posts.sort(
+      (a, b) => b.data.date.getTime() - a.data.date.getTime()
+    ),
+    count: posts.length,
+  }))
+  .sort((a, b) => b.count - a.count);
 ---
-<BaseLayout title="Categories">
-  <h1 class="hero-weight text-4xl mb-8">Categories</h1>
-  <div class="flex flex-wrap gap-3">
-    {categories.map(([category, count]) => (
-      <a href={`/categories/${category}/`} class="tag-pill !text-sm !px-4 !py-2">{category} · {count}</a>
-    ))}
+
+<BaseLayout title="Explore Categories | Discover Bhubaneswar">
+  <div class="max-w-5xl mx-auto">
+    <header class="mb-10">
+      <p class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)] mb-3">
+        Explore Discover Bhubaneswar
+      </p>
+
+      <h1 class="hero-weight text-4xl md:text-5xl mb-4">
+        Explore Categories
+      </h1>
+
+      <p class="text-lg text-[var(--ink-soft)] leading-relaxed max-w-2xl">
+        Discover stories, places, culture and experiences from Bhubaneswar
+        and Odisha. Choose a category to explore more.
+      </p>
+    </header>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {categories.map((category) => {
+        const latestPost = category.posts[0];
+
+        return (
+          <article
+            class="flex flex-col rounded-xl border p-6 transition-colors hover:border-[var(--accent)]"
+            style="border-color: var(--line); background: var(--surface)"
+          >
+            <div class="flex items-start justify-between gap-3 mb-5">
+              <h2 class="text-xl font-bold leading-snug">
+                <a
+                  href={`/categories/${encodeURIComponent(category.name)}/`}
+                  class="hover:text-[var(--accent)] transition-colors"
+                >
+                  {category.name}
+                </a>
+              </h2>
+
+              <span
+                class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold"
+                style="background: var(--background); color: var(--ink-soft)"
+              >
+                {category.count} {category.count === 1 ? 'post' : 'posts'}
+              </span>
+            </div>
+
+            {latestPost && (
+              <div class="mt-auto pt-4 border-t" style="border-color: var(--line)">
+                <p class="text-xs text-[var(--ink-soft)] mb-2">
+                  Latest in {category.name}
+                </p>
+
+                <a
+                  href={`/${latestPost.id}/`}
+                  class="text-sm font-medium leading-relaxed hover:text-[var(--accent)] transition-colors"
+                >
+                  {latestPost.data.title}
+                </a>
+              </div>
+            )}
+
+            <a
+              href={`/categories/${encodeURIComponent(category.name)}/`}
+              class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-[var(--accent)]"
+            >
+              Explore category <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        );
+      })}
+    </div>
   </div>
 </BaseLayout>

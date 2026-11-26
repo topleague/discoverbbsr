@@ -3,98 +3,64 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const categoryMap = new Map<string, typeof allPosts>();
 
-const categoryMap = new Map();
-
-for (const post of allPosts) {
-  for (const category of post.data.categories) {
-    if (!categoryMap.has(category)) {
-      categoryMap.set(category, []);
-    }
-
-    categoryMap.get(category).push(post);
-  }
-}
+allPosts.forEach((post) => {
+  post.data.categories.forEach((category: string) => {
+    if (!categoryMap.has(category)) categoryMap.set(category, []);
+    categoryMap.get(category)!.push(post);
+  });
+});
 
 const categories = [...categoryMap.entries()]
   .map(([name, posts]) => ({
     name,
-    posts: posts.sort(
-      (a, b) => b.data.date.getTime() - a.data.date.getTime()
-    ),
+    posts,
     count: posts.length,
+    latest: posts.sort(
+      (a, b) => b.data.date.getTime() - a.data.date.getTime()
+    )[0],
   }))
   .sort((a, b) => b.count - a.count);
 ---
 
-<BaseLayout title="Explore Categories | Discover Bhubaneswar">
-  <div class="max-w-5xl mx-auto">
+<BaseLayout title="Categories">
+  <main class="mx-auto max-w-6xl px-4 py-12">
     <header class="mb-10">
-      <p class="text-sm font-semibold uppercase tracking-wider text-[var(--accent)] mb-3">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-[var(--accent)]">
         Explore Discover Bhubaneswar
       </p>
-
-      <h1 class="hero-weight text-4xl md:text-5xl mb-4">
-        Explore Categories
-      </h1>
-
-      <p class="text-lg text-[var(--ink-soft)] leading-relaxed max-w-2xl">
-        Discover stories, places, culture and experiences from Bhubaneswar
-        and Odisha. Choose a category to explore more.
+      <h1 class="hero-weight text-4xl sm:text-5xl mb-4">Categories</h1>
+      <p class="max-w-2xl text-lg text-[var(--ink-soft)]">
+        Browse stories, guides and local discoveries by topic.
       </p>
     </header>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {categories.map((category) => {
-        const latestPost = category.posts[0];
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {categories.map(({ name, count, latest }) => (
+        <a
+          href={`/categories/${name}/`}
+          class="group flex flex-col rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 transition hover:-translate-y-1 hover:border-[var(--accent)]"
+        >
+          <div class="mb-5 flex items-center justify-between gap-3">
+            <span class="text-sm text-[var(--ink-soft)]">
+              {count} {count === 1 ? 'article' : 'articles'}
+            </span>
+            <span class="text-xl text-[var(--accent)] transition group-hover:translate-x-1">→</span>
+          </div>
 
-        return (
-          <article
-            class="flex flex-col rounded-xl border p-6 transition-colors hover:border-[var(--accent)]"
-            style="border-color: var(--line); background: var(--surface)"
-          >
-            <div class="flex items-start justify-between gap-3 mb-5">
-              <h2 class="text-xl font-bold leading-snug">
-                <a
-                  href={`/categories/${encodeURIComponent(category.name)}/`}
-                  class="hover:text-[var(--accent)] transition-colors"
-                >
-                  {category.name}
-                </a>
-              </h2>
+          <h2 class="mb-3 text-2xl font-semibold">{name}</h2>
 
-              <span
-                class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold"
-                style="background: var(--background); color: var(--ink-soft)"
-              >
-                {category.count} {category.count === 1 ? 'post' : 'posts'}
-              </span>
+          {latest && (
+            <div class="mt-auto border-t border-[var(--line)] pt-4">
+              <p class="mb-1 text-xs uppercase tracking-wide text-[var(--ink-soft)]">
+                Latest story
+              </p>
+              <p class="text-sm font-medium">{latest.data.title}</p>
             </div>
-
-            {latestPost && (
-              <div class="mt-auto pt-4 border-t" style="border-color: var(--line)">
-                <p class="text-xs text-[var(--ink-soft)] mb-2">
-                  Latest in {category.name}
-                </p>
-
-                <a
-                  href={`/${latestPost.id}/`}
-                  class="text-sm font-medium leading-relaxed hover:text-[var(--accent)] transition-colors"
-                >
-                  {latestPost.data.title}
-                </a>
-              </div>
-            )}
-
-            <a
-              href={`/categories/${encodeURIComponent(category.name)}/`}
-              class="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-[var(--accent)]"
-            >
-              Explore category <span aria-hidden="true">→</span>
-            </a>
-          </article>
-        );
-      })}
+          )}
+        </a>
+      ))}
     </div>
-  </div>
+  </main>
 </BaseLayout>
